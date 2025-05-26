@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "name": "PMMP5Converter",
+  "author": "VsrStudio",
+  "description": "Convert PocketMine plugins to API 5 using PMMP5Converter.",
+  "docker_images": {
+    "ghcr.io/parkervcp/yolks:debian": "Debian Default"
+  },
+  "startup": "php PMMP5Converter/convert.php plugins/ converted-plugins/",
+  "config": {
+    "files": "{}",
+    "startup": "{\r\n    \"done\": \"Conversion complete.\"\r\n}",
+    "logs": "{}",
+    "stop": "exit 0"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/bash\napt update && apt install -y git php-cli\nmkdir -p /mnt/server/plugins /mnt/server/converted-plugins\ncd /mnt/server\ngit clone https://github.com/Wertzui123/PMMP5Converter.git",
+      "container": "ghcr.io/parkervcp/installers:debian",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": []
+}
