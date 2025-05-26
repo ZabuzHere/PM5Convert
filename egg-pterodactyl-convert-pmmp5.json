@@ -5,20 +5,25 @@
   },
   "name": "PMMP5Converter",
   "author": "VsrStudio",
-  "description": "Convert PocketMine plugins to API 5 using PMMP5Converter.",
+  "description": "Convert PocketMine plugins (API 3/4) to API 5 using Wertzui123's PMMP5Converter. Upload plugins to /plugins and get converted ones in /converted-plugins.",
   "docker_images": {
     "ghcr.io/parkervcp/yolks:debian": "Debian Default"
   },
-  "startup": "php PMMP5Converter/convert.php plugins/ converted-plugins/",
+  "startup": "echo '[Startup] Starting PMMP5Converter...'; php PMMP5Converter/converter.php plugins/ converted-plugins/; echo '[Done] Conversion complete.'",
   "config": {
-    "files": "{}",
-    "startup": "{\r\n    \"done\": \"Conversion complete.\"\r\n}",
-    "logs": "{}",
-    "stop": "exit 0"
+    "files": {},
+    "startup": {
+      "done": "Conversion complete."
+    },
+    "logs": {
+      "out": "stdout",
+      "err": "stderr"
+    },
+    "stop": "echo '[Shutdown] Stopping PMMP5Converter...'; exit 0"
   },
   "scripts": {
     "installation": {
-      "script": "#!/bin/bash\napt update && apt install -y git php-cli\nmkdir -p /mnt/server/plugins /mnt/server/converted-plugins\ncd /mnt/server\ngit clone https://github.com/Wertzui123/PMMP5Converter.git",
+      "script": "#!/bin/bash\n\napt update && apt install -y git php-cli unzip curl\n\nmkdir -p /mnt/server/plugins /mnt/server/converted-plugins\ncd /mnt/server\n\nif [ -d \"PMMP5Converter\" ]; then\n  echo \"[Info] PMMP5Converter already exists, pulling latest version...\"\n  cd PMMP5Converter && git pull\nelse\n  echo \"[Info] Cloning PMMP5Converter...\"\n  git clone https://github.com/Wertzui123/PMMP5Converter.git\nfi\n\ncd /mnt/server\n\nif [ ! -f \"PMMP5Converter/converter.php\" ]; then\n  echo \"[Error] converter.php not found!\" >&2\n  exit 1\nfi\n\necho \"[Done] Installation complete. Upload your plugins to /plugins and start the server to convert them.\"",
       "container": "ghcr.io/parkervcp/installers:debian",
       "entrypoint": "bash"
     }
