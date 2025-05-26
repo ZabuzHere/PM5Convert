@@ -1,24 +1,23 @@
 {
+  "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
   "meta": {
     "version": "PTDL_v2",
     "update_url": null
   },
+  "exported_at": "2025-05-26T10:00:00+07:00",
   "name": "PMMP5Converter",
   "author": "VsrStudio",
   "description": "Convert PocketMine plugins (API 3/4) to API 5 using Wertzui123's PMMP5Converter. Upload plugins to /plugins and get converted ones in /converted-plugins.",
+  "features": null,
   "docker_images": {
-    "ghcr.io/parkervcp/yolks:debian": "Debian Default"
+    "ghcr.io/parkervcp/yolks:debian": "ghcr.io/parkervcp/yolks:debian"
   },
+  "file_denylist": [],
   "startup": "echo '[Startup] Starting PMMP5Converter...'; php PMMP5Converter/converter.php plugins/ converted-plugins/; echo '[Done] Conversion complete.'",
   "config": {
-    "files": {},
-    "startup": {
-      "done": "Conversion complete."
-    },
-    "logs": {
-      "out": "stdout",
-      "err": "stderr"
-    },
+    "files": "{}",
+    "startup": "{\n  \"done\": \"Conversion complete.\"\n}",
+    "logs": "{}",
     "stop": "echo '[Shutdown] Stopping PMMP5Converter...'; exit 0"
   },
   "scripts": {
